@@ -1,0 +1,50 @@
+package application;
+
+import java.util.Scanner;
+
+import entities.Client;
+import expectedErrors.Exceptions;
+import services.Account;
+
+public class ATM {
+	public static Scanner scan = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		
+		try {
+			System.out.println("Autoserviço - Criar pré-conta");
+			
+			System.out.print("Informe o nome do cliente: ");
+			String nomeCliente = scan.next();
+			System.out.print("Informe o email do cliente: ");
+			String emailCliente = scan.next();
+			Client cliente = new Client(nomeCliente, emailCliente);
+			
+			int numeroConta = (int)(Math.random() * 10000);
+			double deposito;
+			
+			System.out.print("Será feito depósito inicial? (s/n): ");
+			char depositoInicial = scan.next().charAt(0);
+			
+			if (depositoInicial == 's') {
+				System.out.print("De quanto será o depósito inicial?: ");
+				deposito = scan.nextDouble();
+			}
+			else {
+				deposito = 0.0;
+			}
+			
+			Account conta = new Account(cliente, numeroConta, deposito);
+			
+			System.out.println(conta.toString());
+			
+			conta.withdraw(500.00);  //  for testing
+		}
+		catch (Exceptions error) {
+			System.out.println("Withdraw erro: " + error.getMessage());
+		}
+		finally {
+			scan.close();
+		}
+	}
+}
