@@ -41,7 +41,7 @@ public class ATM {
 			conta.withdraw(500.00);  //  for testing
 		}
 		catch (Exceptions error) {
-			System.out.println("Withdraw erro: " + error.getMessage());
+			System.out.println("Withdraw error: " + error.getMessage());
 		}
 		finally {
 			scan.close();
