@@ -1,0 +1,73 @@
+package services;
+
+import entities.Client;
+import expectedErrors.Exceptions;
+
+public class Account {
+	private Client client;
+	private int number;
+	private double balance;
+	private double withdrawLimit;
+	
+	public Account(Client client, int number, double balance) {
+		this.client = client;
+		this.number = number;
+		this.balance = balance;
+		this.withdrawLimit = balance * 0.4;
+	}
+
+	//  get set client
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	// get set account number
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	//  get set account balance
+	public double getBalance() {
+		return balance;
+	}
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	//  get set withdraw limit
+	public double getWithdrawLimit() {
+		return withdrawLimit;
+	}
+	public void setWithdrawLimit(double withdrawLimit) {
+		this.withdrawLimit = balance * 0.4;
+	}
+	
+	// adds to balance
+	public void deposit(double amount) {
+		this.balance += amount;
+	}
+	
+	//  subtracts from balance
+	public void withdraw(double amount) throws Exceptions {
+		if (amount > withdrawLimit) {
+			throw new Exceptions("Required amount exceeds withdraw limit.");
+		}
+		else {
+			balance -= amount;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		String resumo = "";
+		resumo += getClient().toString();
+		resumo += "Número da conta: " + getNumber() + ". Saldo: R$ " + getBalance() + ". Saque máximo: R$ " + getWithdrawLimit() + ".";
+		return resumo;
+	}
+}
